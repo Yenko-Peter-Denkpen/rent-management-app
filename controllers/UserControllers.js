@@ -1,6 +1,6 @@
-const User = require("../models/userSchema")
-const bcrypt = require("bcrypt")
-const {validate} =require("../config/Validator")
+const User = require('../models/UsersSchema')
+const bcrypt = require('bcrypt')
+const {validate} =require('../config/Validator')
 
 
 
@@ -10,20 +10,20 @@ const addUser = async (req, res) => {
         const {username, email, password } =req.body;
         const valid = await validate({username, email, password});
         if (valid) {
-            const hashedPassword = await bcrypt.hash(valid.password, 8) 
+            const hashedPassword = await bcrypt.hash(valid.password, 10) 
             const savedUser = await User.create({
                username,
                email,
                password:hashedPassword, 
             });
-if (User) {
-    res.status(201) .json({
-        username: username,
-        email: User, email,
-        id: User._id,
+// if (User) {
+//     res.status(201) .json({
+//         username:User.username,
+//         email: User.email,
+//         id: User._id,
      
-    });
-}
+//     });
+// }
 
 
 

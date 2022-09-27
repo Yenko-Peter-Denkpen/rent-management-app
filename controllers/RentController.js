@@ -1,4 +1,4 @@
-const RentManagement = require("../models/RentSchema")
+const House = require("../models/RentSchema")
 
 const createRentManagement = (req, res) => {
 const newHouse = new House({
@@ -11,7 +11,7 @@ const newHouse = new House({
     price: req.body.price
 })
 newHouse.save();
-res.status(200).json(newHouse)
+res.status(200).json(House)
 }
 
 //geting a House

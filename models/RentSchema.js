@@ -1,17 +1,17 @@
 const mongoose =require("mongoose")
 
-const RentSchema =mongoose.Schema({
+const RentSchema = mongoose.Schema({
 location: {
     type: String,
     require:true
 },
 category: {
     type:String,
-    required:true
+    require:true
 },
 facilities: {
     type: Array,
-    required: true
+    require: true
 },
 numOfrooms: {
     type: Number,
@@ -26,8 +26,8 @@ contact : {
     email:String
 },
 price: {
-     amout: String,
-     required:true,
+     type: String,
+     require:true,
 }
 }, {
     timestamps:true
@@ -35,5 +35,5 @@ price: {
 )
 
 
-const Rent = mongoose.model("Rent", RentSchema)
-module.exports=Rent
+const House = mongoose.model("Rent", RentSchema)
+module.exports=House
