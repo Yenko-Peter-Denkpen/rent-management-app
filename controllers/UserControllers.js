@@ -1,6 +1,7 @@
 const User = require('../models/UsersSchema')
 const bcrypt = require('bcrypt')
-const {validate} =require('../config/Validator')
+const {validate} =require('../config/Validator');
+const { generateToken } = require('../utils/generateToken');
 
 
 
@@ -16,14 +17,15 @@ const addUser = async (req, res) => {
                email,
                password:hashedPassword, 
             });
-// if (User) {
-//     res.status(201) .json({
-//         username:User.username,
-//         email: User.email,
-//         id: User._id,
+           if (User) {
+              res.status(201) .json({
+                   username:User.username,
+                   email: User.email,
+                   id: User._id,
+                  Token:generateToken(user._id)
      
-//     });
-// }
+    });
+}
 
 
 

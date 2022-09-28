@@ -17,6 +17,12 @@ numOfrooms: {
     type: Number,
     require:true
 },
+
+"image": {
+    type: String,
+    required: true
+},
+
 address: {
     gps: String,
     box: String
