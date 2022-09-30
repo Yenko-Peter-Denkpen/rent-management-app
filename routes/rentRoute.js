@@ -1,11 +1,8 @@
-const { createRentManagement, getHouse, deleteHouse } = require("../controllers/RentController")
-const { Router } = require("express")
+const {Router} =require("express")
+const { getHouses, createHouse } = require("../controllers/RentController")
 
-const router = Router();
+const router=Router()
 
-router.post("/addhouse", createRentManagement)
-
-router.route("/house").get(getHouse)
-router.route("/delete/:id").delete(deleteHouse)
-
+router.post("/addhouse", createHouse)
+router.get("/", getHouses)
 module.exports= router

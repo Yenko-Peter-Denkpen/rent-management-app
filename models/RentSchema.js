@@ -1,28 +1,24 @@
 const mongoose =require("mongoose")
 
-const RentSchema = mongoose.Schema({
+const RentSchema =mongoose.Schema({
+
+
 location: {
     type: String,
     require:true
 },
 category: {
     type:String,
-    require:true
+    required:true
 },
 facilities: {
     type: Array,
-    require: true
+    require:true
 },
 numOfrooms: {
     type: Number,
     require:true
 },
-
-"image": {
-    type: String,
-    required: true
-},
-
 address: {
     gps: String,
     box: String
@@ -31,15 +27,19 @@ contact : {
     phone: String,
     email:String
 },
-price: {
-     type: String,
-     require:true,
-}
+price:{
+    type:String,
+amount:true
+},
+image:{
+    type:String,
+    require:true
+},
 }, {
     timestamps:true
 }
 )
 
 
-const House = mongoose.model("Rent", RentSchema)
-module.exports=House
+const Rent = mongoose.model("house", RentSchema)
+module.exports=Rent

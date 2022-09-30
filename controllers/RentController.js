@@ -1,41 +1,50 @@
-const House = require("../models/RentSchema")
+const Room =require("../models/RentSchema")
+const bcrypt = require("bcryptjs");
+const houseValidate = require("../config/houseValidator");
 
-const createRentManagement = (req, res) => {
-const newHouse = new House({
-    location: req.body.location,
-    category: req.body.category,
-    facilities: req.body.facilities,
-    numOfrooms: req.body.numOfrooms,
-    image:req.body.image,
-    address: req.body.address,
-    contact:req.body.contact ,
-    price: req.body.price
-})
-newHouse.save();
-res.status(200).json(newHouse) 
+const createHouse = async (req, res) => {
+  const { gpsAddress, landLordName, hseLocation,hseType,imageOfBuilding,amount,note } = req.body;
+  const valid = await houseValidate({ gpsAddress, landLordName});
+  if (valid) {
+    const hashedgpsAddress = await bcrypt.hash(valid.gpsAddress, 10);
+    const house = await Room.create({
+        gpsAddress:hashedgpsAddress,
+        landLordName,
+        hseLocation,
+        hseType,
+        imageOfBuilding,
+        amount,
+        note
+        
+    });
+
+    if (house) {
+    return  res.status(201).json({
+       gpsAddress: house.gpsAddress,
+        landLordName: house.landLordName,
+        hseLocation: house.hseLocation,
+        hseType: house.hseType,
+        imageOfBuilding: house.imageOfBuilding,
+        amount: house.amount,
+        note: house.note
+     
+      });
+    }
+    res.status(201).json({ message: "vacant room created successfully", house });
+  } else {
+    res.status(400).json({
+      message: "invalid data",
+    });
+  }
+};
+
+//get all houses
+const getHouses=(req ,res)=>{
+    res.status(200).json(Room)
 }
 
-//geting a House
-const getHouse = async(req,res) => {
-    const houses = await House.find();
-    res.status(200).json(houses);
-}
-
-//deleting by id
 
 
- async function deleteHouse(req, res) {
-    await House.findByIdAndDelete(req.params.id);
-    res.json({
-        message:"house deleted successfully",
-    })
- }
-
-
-
-
-
-
-
-
-module.exports={createRentManagement, getHouse, deleteHouse}
+    
+  
+    module.exports={createHouse,getHouses}
